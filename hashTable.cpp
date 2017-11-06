@@ -19,23 +19,30 @@ hashTable<keyType, dataType>::hashTable(int nelements)
 
 template <class keyType, class dataType>
 void hashTable<keyType, dataType>::insert(const keyType &k, const dataType &d)
-{
+{   h = hash (k);
+    csize++;
 
-        h = hash (k);
-        csize++;
-
-        if (T[h].key == Empty) {
-            T[h].key = k;
-            T[h].data = d;
+    if (T[h].key == Empty) {
+        T[h].key = k;
+        T[h].data = d;
             return;
         }
-        else
-        {
-            slot * temp;
+    else
+    {
+        slot * temp1 = T[h].next, *temp2 = nullptr ;
+
+        while (temp1!= nullptr) {
+            temp2 = temp1;
+            temp1 = temp1->next;
+            }
+
+        temp2->next = new slot;
+        temp1 = temp2->next;
+        temp1->key = k;
+        temp1->data = d;
+        temp1->next = nullptr;
 
         }
-
-
 
     }
 
