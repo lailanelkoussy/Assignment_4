@@ -18,6 +18,22 @@ hashTable<keyType, dataType>::hashTable(int nelements)
 }
 
 template <class keyType, class dataType>
+hashTable<keyType, dataType>::~hashTable() {
+    slot * temp1, *temp2;
+
+    for (int i =0; i<MaxSize; i++) {
+        temp1 = T[h].next;
+        do  {
+            temp2 = temp1;
+            temp1 = temp1->next;
+        } while (temp1 != nullptr);
+
+        while (T[h].next != nullptr){
+
+        }
+    }
+}
+template <class keyType, class dataType>
 void hashTable<keyType, dataType>::insert(const keyType &k, const dataType &d)
 {   h = hash (k);
     csize++;
