@@ -10,6 +10,7 @@ int main() {
     string filename = "wordlist.txt";
     opening (file, filename);
 
+    file.close();
 
     return 0;
 }
