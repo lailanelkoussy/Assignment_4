@@ -23,15 +23,36 @@ hashTable<keyType, dataType>::~hashTable() {
 
     for (int i =0; i<MaxSize; i++) {
         temp1 = T[h].next;
-        do  {
-            temp2 = temp1;
-            temp1 = temp1->next;
-        } while (temp1 != nullptr);
+        T[h].next = nullptr;
 
-        while (T[h].next != nullptr){
-
+        while ((temp1 != nullptr)|| (temp2 != nullptr)){
+            temp2 = temp1->next;
+            delete temp1;
+            temp1 = temp2->next;
+            delete temp2;
         }
     }
+    delete T;
+}
+
+template <class keyType, class dataType>
+void hashTable<keyType, class dataType>::makeTableEmpty(const keyType &k) {
+    slot * temp1, *temp2;
+    Empty = k;
+    for (int i =0; i<MaxSize; i++) {
+        temp1 = T[h].next;
+        T[h].next = nullptr;
+        T[h] = k;
+
+        while ((temp1 != nullptr)|| (temp2 != nullptr)){
+            temp2 = temp1->next;
+            delete temp1;
+            temp1 = temp2->next;
+            delete temp2;
+        }
+    }
+
+
 }
 template <class keyType, class dataType>
 void hashTable<keyType, dataType>::insert(const keyType &k, const dataType &d)
