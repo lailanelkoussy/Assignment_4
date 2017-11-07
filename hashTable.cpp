@@ -88,7 +88,7 @@ int hashTable<keyType, dataType>::hash(const string &k) const
 { int temp = 1;
     for (int i = 0; i<k.length(); i++)
         temp = int(k[i]) * pow(26, i);
-        temp %= MaxSize;
+    temp %= MaxSize;
 
 
     return temp;
