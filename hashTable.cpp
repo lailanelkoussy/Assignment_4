@@ -55,8 +55,9 @@ void hashTable<keyType, class dataType>::makeTableEmpty(const keyType &k) {
 
 }
 template <class keyType, class dataType>
-void hashTable<keyType, dataType>::insert(const keyType &k, const dataType &d)
-{   h = hash (k);
+void hashTable<keyType, dataType>::insert(const dataType &d)
+{   int k=1;
+    h = hash (d, k);
     csize++;
 
     if (T[h].key == Empty) {
@@ -84,12 +85,37 @@ void hashTable<keyType, dataType>::insert(const keyType &k, const dataType &d)
     }
 
 template <class keyType, class dataType>
-int hashTable<keyType, dataType>::hash(const string &k) const
+int hashTable<keyType, dataType>::hash(const string &d, int &k ) const
 { int temp = 1;
-    for (int i = 0; i<k.length(); i++)
-        temp = int(k[i]) * pow(26, i);
+    for (int i = 0; i<d.length(); i++)
+        temp = int(int(d[i]) * pow(26, i));
+    k = temp;
     temp %= MaxSize;
 
 
     return temp;
+}
+
+template <class keyType, class dataType>
+int hashTable <class keyType, class dataType>::getID(string ) const {
+
+
+}
+
+template <class keyType, class dataType>
+void hashTable <class keyType, class dataType>::traverse() {
+    slot * temp;
+    for (int i = 0; i<MaxSize; i++){
+        if (T[i].key != Empty) {
+            cout<<T[i].data<<" ";
+            temp = T[i].next;
+            while (temp != nullptr){
+                cout<<temp->data<<" ";
+                temp = temp->next;
+            }
+            cout<<endl;
+        }
+
+    }
+
 }

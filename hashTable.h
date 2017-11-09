@@ -5,6 +5,8 @@
 #ifndef ASSIGNMENT_4_HASHTABLE_H
 #define ASSIGNMENT_4_HASHTABLE_H
 
+#include <iostream>
+
 template <class keyType, class dataType>
 
 class hashTable {
@@ -19,8 +21,9 @@ public:
     void makeTableEmpty(const keyType &);
     bool tableIsEmpty() const;
     bool tableIsFull() const;
-    void insert(const keyType &, const dataType &);
+    void insert(const dataType &);
     bool search(const keyType &);
+    void traverse ();
 
 private:
 
@@ -28,7 +31,7 @@ private:
     class slot
     {
     public:
-        keyType key; 		// key
+        int key; 		// key
         dataType data;		// Data
         slot * next;
     }; // end of class slot declaration
@@ -38,7 +41,8 @@ private:
     int MaxSize, csize;					// Maximum and Current Sizes
     keyType Empty;						// empty symbol
 
-    int hash(const keyType &) const;
+    int hash(const std::string &, int &) const;
+    int getID (const std::string) const ;
 
 };
 
