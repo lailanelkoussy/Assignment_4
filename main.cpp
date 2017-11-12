@@ -10,18 +10,23 @@ using namespace std;
 
 void opening (ifstream &file, const string& filename);
 void fillTable (hashTable& , string &filename);
-string lowerCase (string&);
+void lowerCase (string&);
 
 
 int main() {
     hashTable <int, string> a;
-    string filename;
-
+    string filename, check;
     cout<<"Please type in filename with .txt extension";
     cin>>filename;
 
     fillTable(a, filename);
     a.traverse();
+
+    cout<<"Please enter a word to spellcheck";
+    cin>>check;
+    lowerCase(check);
+    a.search(check);
+
 
 
 
@@ -50,7 +55,7 @@ void fillTable (hashTable<int, string> &a, string &filename)
     while (file.good()) {
 
         getline(file, temp);
-        temp = lowerCase(temp);
+        lowerCase(temp);
         a.insert(temp);
 
     }
@@ -60,10 +65,10 @@ void fillTable (hashTable<int, string> &a, string &filename)
 
 }
 
-string lowerCase (string& a){
+void lowerCase (string& a){
     string temp="";
     locale loc;
     for (std::string::size_type i=0; i<a.length(); ++i)
         temp+=std::tolower(a[i],loc);
-
+    a = temp;
 }

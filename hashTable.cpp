@@ -36,7 +36,7 @@ hashTable<keyType, dataType>::~hashTable() {
 }
 
 template <class keyType, class dataType>
-void hashTable<keyType, class dataType>::makeTableEmpty(const keyType &k) {
+void hashTable<keyType,dataType>::makeTableEmpty(const keyType &k) {
     slot * temp1, *temp2;
     Empty = k;
     for (int i =0; i<MaxSize; i++) {
@@ -52,8 +52,24 @@ void hashTable<keyType, class dataType>::makeTableEmpty(const keyType &k) {
         }
     }
 
-
 }
+
+template <class keyType, class dataType>
+bool hashTable<keyType, dataType>::tableIsEmpty() const
+{
+    if (csize == 0)
+        return true;
+    else return false;
+}
+
+template <class keyType, class dataType>
+bool hashTable<keyType, dataType>::tableIsFull() const
+{
+    if (csize == 60389)
+        return true;
+    else return false;
+}
+
 template <class keyType, class dataType>
 void hashTable<keyType, dataType>::insert(const dataType &d)
 {   int k=1;
@@ -97,14 +113,14 @@ int hashTable<keyType, dataType>::hash(const string &d, int &k ) const
 }
 
 template <class keyType, class dataType>
-int hashTable <class keyType, class dataType>::getID(string ) const {
+int hashTable <keyType, dataType>::getID(string ) const {
 
 
 }
 
+
 template <class keyType, class dataType>
-template <class keyType, class dataType>
-void hashTable <class keyType, class dataType>::traverse() {
+void hashTable <keyType, dataType>::traverse() {
     slot * temp;
     for (int i = 0; i<MaxSize; i++){
         if (T[i].key != Empty) {

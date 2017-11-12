@@ -22,7 +22,7 @@ public:
     bool tableIsEmpty() const;
     bool tableIsFull() const;
     void insert(const dataType &);
-    bool search(const keyType &);
+    bool search(const dataType &);
     void traverse ();
 
 private:
