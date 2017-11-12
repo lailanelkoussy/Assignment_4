@@ -16,11 +16,10 @@ void lowerCase (string&);
 
 int main() {
     hashTable <int, string> a;
-    a.makeTableEmpty(0);
-    string filename= "wordlist.txt", check;
-    /*cout<<"Please type in filename with .txt extension: ";
-    cin>>filename;*/
 
+    string filename, check;
+    cout<<"Please type in filename with .txt extension: ";
+    cin>>filename;
 
     fillTable(a, filename);
     a.traverse();
@@ -40,7 +39,7 @@ int main() {
 void opening (ifstream &file, const string& filename)
 { file.open(filename);
     if (file.is_open())
-    cout<<"file is successfully open";
+    return;
 
     else
         cout << "Could not open " << filename;
@@ -55,6 +54,7 @@ void fillTable (hashTable<int, string> &a, string &filename)
 
 
     while (file.good()) {
+
 
         getline(file, temp);
         lowerCase(temp);
