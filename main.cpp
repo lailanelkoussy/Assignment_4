@@ -5,6 +5,7 @@
 #include <string>
 
 
+
 using namespace std;
 
 void opening (ifstream &file, const string& filename);
