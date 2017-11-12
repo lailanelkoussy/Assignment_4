@@ -103,6 +103,7 @@ int hashTable <class keyType, class dataType>::getID(string ) const {
 }
 
 template <class keyType, class dataType>
+template <class keyType, class dataType>
 void hashTable <class keyType, class dataType>::traverse() {
     slot * temp;
     for (int i = 0; i<MaxSize; i++){
