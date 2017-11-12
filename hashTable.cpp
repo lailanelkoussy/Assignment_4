@@ -15,6 +15,7 @@ hashTable<keyType, dataType>::hashTable(int nelements)
     T = new slot[MaxSize];
     h = -1;
     csize = 0;
+
 }
 
 template <class keyType, class dataType>
@@ -40,9 +41,10 @@ void hashTable<keyType,dataType>::makeTableEmpty(const keyType &k) {
     slot * temp1, *temp2;
     Empty = k;
     for (int i =0; i<MaxSize; i++) {
-        temp1 = T[h].next;
         T[h].next = nullptr;
-        T[h] = k;
+        T[h].key= k;
+        temp1 = T[h].next;
+        temp2 = temp1;
 
         while ((temp1 != nullptr)|| (temp2 != nullptr)){
             temp2 = temp1->next;
@@ -110,12 +112,6 @@ int hashTable<keyType, dataType>::hash(const string &d, int &k ) const
 
 
     return temp;
-}
-
-template <class keyType, class dataType>
-int hashTable <keyType, dataType>::getID(string ) const {
-
-
 }
 
 

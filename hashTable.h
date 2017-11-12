@@ -31,7 +31,7 @@ private:
     class slot
     {
     public:
-        int key; 		// key
+        keyType key; 		// key
         dataType data;		// Data
         slot * next;
     }; // end of class slot declaration
@@ -42,7 +42,7 @@ private:
     keyType Empty;						// empty symbol
 
     int hash(const std::string &, int &) const;
-    int getID (const std::string) const ;
+
 
 };
 

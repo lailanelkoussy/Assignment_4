@@ -6,26 +6,29 @@
 
 
 
+
 using namespace std;
 
 void opening (ifstream &file, const string& filename);
-void fillTable (hashTable& , string &filename);
+void fillTable (hashTable<int, string>& , string &filename);
 void lowerCase (string&);
 
 
 int main() {
     hashTable <int, string> a;
-    string filename, check;
-    cout<<"Please type in filename with .txt extension";
-    cin>>filename;
+    a.makeTableEmpty(0);
+    string filename= "wordlist.txt", check;
+    /*cout<<"Please type in filename with .txt extension: ";
+    cin>>filename;*/
+
 
     fillTable(a, filename);
     a.traverse();
 
-    cout<<"Please enter a word to spellcheck";
+    /*cout<<"Please enter a word to spellcheck";
     cin>>check;
     lowerCase(check);
-    a.search(check);
+    a.search(check);*/
 
 
 
@@ -37,11 +40,10 @@ int main() {
 void opening (ifstream &file, const string& filename)
 { file.open(filename);
     if (file.is_open())
-        return;
-    else {
+    cout<<"file is successfully open";
+
+    else
         cout << "Could not open " << filename;
-        return;
-    }
 
 }
 
@@ -67,8 +69,8 @@ void fillTable (hashTable<int, string> &a, string &filename)
 
 void lowerCase (string& a){
     string temp="";
-    locale loc;
-    for (std::string::size_type i=0; i<a.length(); ++i)
-        temp+=std::tolower(a[i],loc);
+    for (int i =0; i<a.length(); i++){
+        temp+= char(tolower(int(a[i])));
+    }
     a = temp;
 }
