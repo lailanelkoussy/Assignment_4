@@ -13,7 +13,7 @@ class hashTable {
 public:
 
     // Member Functions
-    hashTable(int nelements = 149);		// Constructor
+    hashTable();		// Constructor
     ~hashTable();						// Destructor
 
     // Functions Prototype Definitions
@@ -23,10 +23,20 @@ public:
     bool tableIsFull() const;
     void insert(const dataType &);
     bool search(const dataType &);
+    void Suggest(const std::string & A);
+    dataType retrieve(keyType k) const;
+    int Occupancy()const;
+    void Update(keyType k,dataType d);
+    int hammingDistance(const std::string & A, const std::string &B)const;
     void traverse ();
 
 private:
+    struct Suggestions
+    {
+        int dist;
+        std::string similar;
 
+    };
     // Slot Class
     class slot
     {
@@ -41,7 +51,7 @@ private:
     int MaxSize, csize;					// Maximum and Current Sizes
     keyType Empty;						// empty symbol
 
-    int hash(const std::string &, int &) const;
+    int hash(dataType d, keyType & k) const;
 
 
 };
