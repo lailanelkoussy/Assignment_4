@@ -15,9 +15,9 @@ hashTable<keyType, dataType>::hashTable()
     T = new slot[MaxSize];
     Empty = 0;
     for (int i=0; i<MaxSize; i++)
-    {T[i].key = Empty;
+    {   T[i].key = Empty;
         T[i].next = nullptr; }
-    h = -1;
+    h = 0;
 
     csize = 0;
 
@@ -84,52 +84,45 @@ template <class keyType, class dataType>
 void hashTable<keyType, dataType>::insert(const dataType &d)
 {
     keyType k;
-    h = hash(d,k);
+    h = hash(d, k);
     csize++;
-    slot * temp1;
+    slot * temp1; // *newslot;
     if (tableIsFull())
-    {   cout<<"Table is full";
+    {
+        cout << "Table is full";
         return;
     }
-    if (T[h].key == Empty) {
-         cout<<"Empty slot for: "<<d<<endl;
-         T[h].key = k;
-         T[h].data = d;
-         T[h].next = nullptr;
-         return;
-     }
-    else if (T[h].next == nullptr){
-         cout<<d<<" is second in line!"<<endl;
-         T[h].next = new slot;
-         temp1 = T[h].next;
-         temp1->key = k;
-         temp1->data = d;
-         temp1->next = nullptr;
+    if (T[h].key == Empty)
+    {
+        T[h].key = k;
+        T[h].data = d;
+        T[h].next = nullptr;
         return;
-     }
-
-    else {
-        cout<<"Full slot for: "<<d;
+    }
+    else if (T[h].key != Empty)
+    {
         temp1 = T[h].next;
-        while (temp1->next!= nullptr)
+        while (temp1 != nullptr)
+        {
             temp1 = temp1->next;
-
+        }
+        temp1 = new slot;
+        //temp1 = newslot;
         temp1->key = k;
         temp1->data = d;
         temp1->next = nullptr;
         return;
-
-
     }
-
-    }
+    else
+        cout << "failed" << endl;
+}
 
 template <class keyType, class dataType>
-int  hashTable<keyType, dataType>::hash(const dataType d, keyType & k) const
+unsigned long  hashTable<keyType, dataType>::hash(const dataType d, keyType & k) const
 {
-    int temp = 0, n = d.length();
+    unsigned long temp = 0, n = d.length();
     for (int i = 0; i < n; i++)
-        temp = temp + tolower(d[i]) * pow(26, i);
+        temp = temp + int(tolower(d[i])) * pow(26, i);
     k = temp;
     temp = temp % MaxSize;
 
@@ -157,8 +150,8 @@ void hashTable <keyType, dataType>::traverse() {
 
 template <class keyType, class dataType>
 bool  hashTable<keyType, dataType>::search(const dataType& d)
-{   int k;
-    int h = hash(d,k);
+{   double k;
+    unsigned long h = hash(d,k);
     slot* temp = T[h].next;
     if (T[h].key == k)
         return true;
@@ -204,41 +197,36 @@ int hashTable<keyType, dataType>::hammingDistance(const std::string &A, const st
 template<class keyType, class dataType>
 void hashTable<keyType, dataType>::Suggest(const string & A)
 {
-    Suggestions B[5];
-    int cpointer = 0, n=5, tempint, s;
-    string temps, f;
+    //Suggestions B[5];
+
+    int cpointer = 0, s, n = 5, B[5];
+    string temps, f, Bs [5];
     char c = A[0];
     slot * temp1;
     temp1 = &T[cpointer];
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < n; i++)
     {
-        f = temp1->data;
-        if (f[0] == c)
+        if (T[cpointer].key != Empty)
         {
-            s = hammingDistance(A, f);
-            B[i].dist = s;
-            B[i].similar = f;
-        }
-        if (temp1->next != NULL)
-            temp1 = temp1->next;
-        else
-        {
-            cpointer++;
-            temp1 = &T[cpointer];
-        }
-    }
-    for (int i = 0; i < n - 1; i++)
-        for (int j = 0; j < n - i - 1; j++)
-            if (B[j].dist < B[j + 1].dist)
+            f = temp1->data;
+            if (f[0] == c)
             {
-                tempint = B[j + 1].dist;
-                B[j + 1].dist = B[j].dist;
-                B[j].dist = tempint;
-                temps = B[j + 1].similar;
-                B[j + 1].similar = B[j].similar;
-                B[j].similar = temps;
+                s = hammingDistance(A, f);
+                B[i] = s;
+                Bs[i] = f;
             }
+            if (temp1->next != NULL)
+                temp1 = temp1->next;
+            else
+            {
+                cpointer++;
+                temp1 = &T[cpointer];
+            }
+        }
+        cpointer++;
+    }
+    order(Bs, B, n);
 
     for (int i = cpointer; i < MaxSize; i++)
     {
@@ -249,31 +237,38 @@ void hashTable<keyType, dataType>::Suggest(const string & A)
             if (f[0] == c)
             {
                 s = hammingDistance(A, f);
-                if (s < B[0].dist)
+                if (s < B[0])
                 {
-                    B[0].similar = f;
-                    B[0].dist = s;
-                    for (int i = 0; i < n - 1; i++)
-                        for (int j = 0; j < n - i - 1; j++)
-                            if (B[j].dist < B[j + 1].dist)
-                            {
-                                tempint = B[j + 1].dist;
-                                B[j + 1].dist = B[j].dist;
-                                B[j].dist = tempint;
-                                temps = B[j + 1].similar;
-                                B[j + 1].similar = B[j].similar;
-                                B[j].similar = temps;
-                            }
-                }
+                    Bs[0]= f;
+                    B[0]= s;
+                    order(Bs, B, n);
 
             }
 
-            }
-            temp1 = temp1->next;
         }
-
-    for (int i = 0; i < 5; i++)
-    {
-        cout << B[i].similar << " ";
+        temp1 = temp1->next;
     }
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << Bs[i] << " ";
+    }
+}}
+
+template <class keyType, class dataType>
+void hashTable<keyType, dataType>::order(string s[], int p[], int n)
+{
+    int tempint;
+    string temps;
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - i - 1; j++)
+            if (p[i] < p[j + 1])
+            {
+                tempint = p[j + 1];
+                p[j + 1] = p[j];
+                p[j]= tempint;
+                temps = s[j + 1];
+                s[j + 1] = s[j];
+                s[j] = temps;
+            }
 }

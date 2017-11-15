@@ -25,6 +25,7 @@ int main() {
     a.traverse();
     cout<<"Imported words successfully, enter name of file to spell check with .txt extension: ";
     cin>>check;
+    spellCheck(a, check);
 
     return 0;
 }

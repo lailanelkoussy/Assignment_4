@@ -29,14 +29,9 @@ public:
     void Update(keyType k,dataType d);
     int hammingDistance(const std::string & A, const std::string &B)const;
     void traverse ();
+    void order(std::string s[], int p[], int n);
 
 private:
-    struct Suggestions
-    {
-        int dist;
-        std::string similar;
-
-    };
     // Slot Class
     class slot
     {
@@ -47,11 +42,11 @@ private:
     }; // end of class slot declaration
 
     slot *T;							// Pointer to Storage Array
-    int h;								// Index to a slot
+    unsigned long h;								// Index to a slot
     int MaxSize, csize;					// Maximum and Current Sizes
     keyType Empty;						// empty symbol
 
-    int hash(dataType d, keyType & k) const;
+    unsigned long hash(dataType d, keyType & k) const;
 
 
 };
