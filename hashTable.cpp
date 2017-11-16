@@ -25,7 +25,7 @@ hashTable<keyType, dataType>::hashTable()
 
 template <class keyType, class dataType>
 hashTable<keyType, dataType>::~hashTable() {
-    slot * temp1, *temp2;
+   /* slot * temp1, *temp2;
 
     for (int i =0; i<MaxSize; i++) {
         temp1 = T[i].next;
@@ -39,7 +39,7 @@ hashTable<keyType, dataType>::~hashTable() {
             delete temp2;
         }
     }
-    delete T;
+    delete T;*/
 }
 
 template <class keyType, class dataType>
@@ -86,12 +86,10 @@ void hashTable<keyType, dataType>::insert(const dataType &d)
     keyType k;
     h = hash(d, k);
     csize++;
-    slot * temp1; // *newslot;
+    slot * temp1;;
     if (tableIsFull())
-    {
-        cout << "Table is full";
         return;
-    }
+
     if (T[h].key == Empty)
     {
         T[h].key = k;
@@ -249,11 +247,13 @@ void hashTable<keyType, dataType>::Suggest(const string & A)
         temp1 = temp1->next;
     }
 
+
+}
     for (int i = 0; i < n; i++)
     {
         cout << Bs[i] << " ";
     }
-}}
+}
 
 template <class keyType, class dataType>
 void hashTable<keyType, dataType>::order(string s[], int p[], int n)

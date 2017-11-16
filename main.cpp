@@ -22,7 +22,6 @@ int main() {
     cout<<"Please type in filename with .txt extension with the dictionary : ";
     cin>>filename;
     fillTable(a, filename);
-    a.traverse();
     cout<<"Imported words successfully, enter name of file to spell check with .txt extension: ";
     cin>>check;
     spellCheck(a, check);
@@ -82,12 +81,11 @@ void spellCheck (hashTable<double, string>&a , string &filename){
         while (file.good()) {
             while ((file.good()) && !isspace(file.get())) {
                 file.get(c);
-                if (!isspace(c))
                     word += c;
-
             }
 
             found = a.search(word);
+
 
             if (!found) {
                 cout<<"Misspelled word found: "<<word;
@@ -95,7 +93,7 @@ void spellCheck (hashTable<double, string>&a , string &filename){
                 cout<<endl;
 
             }
-
+            word = "";
         }
     }
 
